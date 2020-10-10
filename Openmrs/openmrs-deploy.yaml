@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmrs
+spec:
+  minReadySeconds: 10
+  replicas: 3
+  selector:
+    matchLabels:
+      app: openmrs
+      ver: '0.1'
+  strategy:
+    rollingUpdate:
+      maxSurge: 35%
+      maxUnavailable: 30%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: openmrs
+        ver: '0.1'
+    spec:
+      containers:
+        - name: openmrs
+          image: makrandhirani/openmrs:0.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
