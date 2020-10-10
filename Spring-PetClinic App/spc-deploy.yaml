@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springpetclinic
+spec:
+  minReadySeconds: 10
+  replicas: 3
+  selector:
+    matchLabels:
+      app: springpetclinic
+      ver: '0.1'
+  template:
+    metadata:
+      labels:
+        app: springpetclinic
+        ver: '0.1'
+    spec:
+      containers:
+        - name: springpetclinic
+          image: makrandhirani/spc:0.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
